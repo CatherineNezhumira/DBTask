@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 
-APP_DB_USER=myapp
+APP_DB_USER=username
 APP_DB_PASS=dbpass
-APP_DB_NAME=contactInfo
+APP_DB_NAME=contacts
 
 
 apt-get update
@@ -23,7 +23,7 @@ apt-get install -y maven
 apt-get install -y postgresql postgresql-contrib
 
 #Installing Git
-apt install -y git
+apt-get install -y git
 
 #Creating database
 #Restart so that all new config is loaded:
@@ -41,13 +41,8 @@ CREATE DATABASE $APP_DB_NAME WITH OWNER=$APP_DB_USER
                                   TEMPLATE=template0;
 EOF
 
-# Tag the provision time:
-date > "$PROVISIONED_ON"
-
 echo "Successfully created PostgreSQL dev virtual machine."
 
 git clone https://github.com/CatherineNezhumira/DBTask.git
 
-cd ./DBTask
-
-mvn spring-boot:run -Dspring.datasource.username=$APP_DB_USER -Dspring.datasource.password=$APP_DB_PASS -Dspring.datasource.url=jdbc:postgresql://localhost:5432/$APP_DB_NAME
+cd DBTask && mvn spring-boot:run -Dspring.datasource.username=$APP_DB_USER -Dspring.datasource.password=$APP_DB_PASS -Dspring.datasource.url=jdbc:postgresql://localhost:5432/$APP_DB_NAME
