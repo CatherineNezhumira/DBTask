@@ -1,0 +1,6 @@
+-- CREATE DATABASE contactInfo;
+
+CREATE TABLE contacts (
+id INT PRIMARY KEY NOT NULL,
+name VARCHAR NOT NULL
+);
